@@ -8,3 +8,4 @@ class Dog:
 
 dog1 = Dog("바둑이", "진돗개")
 print(dog1.bark())
+
