@@ -1,3 +1,4 @@
+# 2026_01_08
 ## 객체지향 프로그래밍의 4대 속성
 1. 캡슐화 
 2. 상속성
@@ -43,8 +44,9 @@ class Cat(Animal):
         self.color = color     # 자식만의 고유 속성 초기화
 ```
 
-강제 차단보다는 "건드리지 말라"는 신호를 보내는 것
 ```python
+#강제 차단보다는 "건드리지 말라"는 신호를 보내는 것
+# 아래와 같은 문법으로 변경가능함.
 print(account._BankAccount__balance)
 account._BankAccount__balance = -10000
 ```
