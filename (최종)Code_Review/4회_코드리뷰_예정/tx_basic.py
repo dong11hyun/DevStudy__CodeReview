@@ -62,11 +62,11 @@ def emit_paid(order: Order):
 # 3) 수동 저장지점 API 예시
 @transaction.atomic
 def process_with_manual_savepoint(order: Order):
-    sid = transaction.savepoint()
+    sid = transaction.savepoint()  # savepoint 깃발 꽂기
     try:
         Ledger.objects.create(order=order, kind='charge', amount=order.total_amount)
     except IntegrityError:
-        transaction.savepoint_rollback(sid)
+        transaction.savepoint_rollback(sid)  # savepoint 깃발로 돌아가기
     else:
-        transaction.savepoint_commit(sid)
+        transaction.savepoint_commit(sid)  # savepoint 깃발 지우기!!
     # 이후 추가 처리 ...
