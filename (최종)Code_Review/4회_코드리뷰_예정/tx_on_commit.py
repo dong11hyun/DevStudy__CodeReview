@@ -4,13 +4,13 @@ from .models import OutboxEvent, Order
 def create_outbox_for_order_created(order: Order):
     # 1) 트랜잭션 안에서 Outbox 레코드 생성
     OutboxEvent.objects.create(
-        aggregate_type='Order',
-        aggregate_id=str(order.id),
-        event_type='OrderCreated',
-        payload={'order_id': str(order.id)},
-        status='pending',
+        aggregate_type='Order', #도메인
+        aggregate_id=str(order.id),#어떤 주문
+        event_type='OrderCreated',# 무슨이벤트
+        payload={'order_id': str(order.id)}, #전송할 데이터
+        status='pending', #아직 안보냄
     )
-    # 2) 커밋 이후 디스패처 기동(브로커 전송 등)
+    # 2) 트랜잭션이 성공커밋 이후 디스패처 기동(브로커 전송 등)
     transaction.on_commit(lambda: schedule_outbox_dispatch())
 
 def schedule_outbox_dispatch():

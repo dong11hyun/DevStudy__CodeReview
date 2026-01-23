@@ -25,10 +25,7 @@ def swap_two_products(p1_id: int, p2_id: int):
 # 3) (PostgreSQL) skip_locked 스타일 배치 선점
 def pick_next_batch(limit=100):
     with transaction.atomic():
-        rows = (Order.objects
-                .select_for_update(skip_locked=True)  # PG에서만 동작
-                .filter(status='pending')
-                .order_by('created_at')[:limit])
+        rows = (Order.objects.select_for_update(skip_locked=True).filter(status='pending').order_by('created_at')[:limit])
         for o in rows:
             o.status = 'processing'
             o.save(update_fields=['status'])
