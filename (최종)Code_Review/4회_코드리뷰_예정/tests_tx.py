@@ -2,7 +2,7 @@ import pytest
 from decimal import Decimal
 from django.contrib.auth import get_user_model
 from .models import Product, Order
-from .tx_basics import create_order, charge_and_log
+from .tx_basic import create_order, charge_and_log
 
 pytestmark = pytest.mark.django_db(transaction=True)
 
